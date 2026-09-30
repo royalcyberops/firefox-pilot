@@ -1,0 +1,29 @@
+{
+  "manifest_version": 2,
+  "name": "Firefox Pilot",
+  "version": "0.2.0",
+  "description": "Local-only remote control for OpenCode computer use. Connects out to a 127.0.0.1 WebSocket server. No remote servers, no API keys.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "firefox-pilot@localhost",
+      "strict_min_version": "115.0"
+    }
+  },
+  "permissions": ["tabs", "activeTab", "scripting", "storage", "<all_urls>"],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "content_security_policy": "script-src 'self'; object-src 'self'; connect-src ws://127.0.0.1:8765 wss://127.0.0.1:8765;",
+  "browser_action": {
+    "default_title": "Firefox Pilot",
+    "default_popup": "popup.html"
+  }
+}
