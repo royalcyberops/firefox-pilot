@@ -94,7 +94,12 @@ def read_frame(conn):
 
 def send_frame(conn, text):
     data = text.encode("utf-8")
-    head = bytes([0x81, 0x7E]) + struct.pack(">H", len(data)) if len(data) > 125 else bytes([0x81, len(data)])
+    if len(data) > 65535:  # ponytail: 64-bit lengths carry photos; 16-bit capped everything at 64KB
+        head = bytes([0x81, 0x7F]) + struct.pack(">Q", len(data))
+    elif len(data) > 125:
+        head = bytes([0x81, 0x7E]) + struct.pack(">H", len(data))
+    else:
+        head = bytes([0x81, len(data)])
     conn.sendall(head + data)
 
 

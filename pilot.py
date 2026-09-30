@@ -6,15 +6,19 @@ Usage:
   pilot.py tabs
   pilot.py goto <url>
   pilot.py snapshot
-  pilot.py click <ref>
-  pilot.py type <ref> <text> [--submit]
-  pilot.py read [text|html]
-  pilot.py scroll [x] [y]
-  pilot.py screenshot [out.png]
+   pilot.py click <ref>
+   pilot.py type <ref> <text> [--submit]
+   pilot.py fill <ref>=<value> [<ref>=<value> ...]
+   pilot.py upload <ref> <local-file>
+   pilot.py drop <ref> <local-file>
+   pilot.py read [text|html]
+   pilot.py scroll [x] [y]
+   pilot.py screenshot [out.png]
 """
 import base64
 import hashlib
 import json
+import mimetypes
 import os
 import socket
 import struct
@@ -58,7 +62,9 @@ def read_frame(s):
 def send_frame(s, text):
     data = text.encode()
     mask = os.urandom(4)
-    if len(data) > 125:
+    if len(data) > 65535:  # ponytail: 64-bit lengths carry photos; 16-bit capped everything at 64KB
+        head = bytes([0x81, 0x80 | 0x7F]) + struct.pack(">Q", len(data))
+    elif len(data) > 125:
         head = bytes([0x81, 0x80 | 0x7E]) + struct.pack(">H", len(data))
     else:
         head = bytes([0x81, 0x80 | len(data)])
@@ -84,6 +90,17 @@ def call(action, params=None):
     return out
 
 
+def load_file_arg(path):
+    p = Path(path).expanduser()
+    if not p.is_file():
+        sys.exit(f"file not found: {path}")
+    if p.stat().st_size > 8 * 1024 * 1024:
+        sys.exit("file too big (>8MB) for pilot upload")
+    mime, _ = mimetypes.guess_type(p.name)
+    return {"filename": p.name, "mime": mime or "application/octet-stream",
+            "data": base64.b64encode(p.read_bytes()).decode()}
+
+
 def main(argv):
     if not argv or argv[0] in ("-h", "--help"):
         sys.exit(__doc__)
@@ -103,6 +120,18 @@ def main(argv):
     elif cmd == "type" and len(rest) >= 2:
         print(json.dumps(call("type", {"ref": int(rest[0]), "text": rest[1],
                                        "submit": "--submit" in rest})))
+    elif cmd == "fill" and rest:
+        items = []
+        for pair in rest:
+            if "=" not in pair:
+                sys.exit(f"fill needs ref=value pairs, got: {pair}")
+            r, v = pair.split("=", 1)
+            items.append({"ref": int(r), "value": v})
+        print(json.dumps(call("fill", {"items": items})))
+    elif cmd == "upload" and len(rest) >= 2:
+        print(json.dumps(call("upload", {"ref": int(rest[0]), "file": load_file_arg(rest[1])})))
+    elif cmd == "drop" and len(rest) >= 2:
+        print(json.dumps(call("drop", {"ref": int(rest[0]), "file": load_file_arg(rest[1])})))
     elif cmd == "read":
         print(json.dumps(call("read", {"mode": rest[0] if rest else "text"}))[:4000])
     elif cmd == "scroll":

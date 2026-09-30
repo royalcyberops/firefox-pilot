@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Firefox Pilot",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Local-only remote control for OpenCode computer use. Connects out to a 127.0.0.1 WebSocket server. No remote servers, no API keys.",
   "browser_specific_settings": {
     "gecko": {

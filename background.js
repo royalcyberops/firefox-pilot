@@ -45,17 +45,23 @@
       case "snapshot":
       case "click":
       case "type":
+      case "fill":
+      case "upload":
+      case "drop":
       case "read":
       case "scroll": {
         const tab = await activeTab();
+        const p = msg.params || {};
         const r = await sendToTab(tab.id, {
           cmd: a,
-          ref: msg.params && msg.params.ref,
-          text: msg.params && msg.params.text,
-          submit: msg.params && msg.params.submit,
-          mode: msg.params && msg.params.mode,
-          x: msg.params && msg.params.x,
-          y: msg.params && msg.params.y,
+          ref: p.ref,
+          text: p.text,
+          submit: p.submit,
+          mode: p.mode,
+          x: p.x,
+          y: p.y,
+          items: p.items,
+          file: p.file,
         });
         if (!r.ok) throw new Error(r.error || "tab error");
         return r.data || r;
