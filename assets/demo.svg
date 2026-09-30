@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="300" font-family="monospace">
+  <rect width="760" height="300" rx="12" fill="#0d1117"/>
+  <circle cx="40" cy="25" r="6" fill="#f85149"/>
+  <circle cx="60" cy="25" r="6" fill="#d29922"/>
+  <circle cx="80" cy="25" r="6" fill="#3fb950"/>
+  <text x="110" y="30" font-size="13" fill="#8b949e">pilot.py — live session</text>
+  <g font-size="13">
+    <text x="30" y="65" fill="#8b949e">$ export PILOT_TOKEN=pilot-local &amp;&amp; python3 server.py</text>
+    <text x="30" y="90" fill="#3fb950">pilot server on 127.0.0.1:8765 (localhost only)</text>
+    <text x="30" y="120" fill="#8b949e">$ python3 pilot.py ping</text>
+    <text x="30" y="143" fill="#e6edf3">{ "pong": true, "extension": true }</text>
+    <text x="30" y="173" fill="#8b949e">$ python3 pilot.py goto https://example.com &amp;&amp; python3 pilot.py snapshot</text>
+    <text x="30" y="196" fill="#58a6ff">[0] a Learn more (936,492)</text>
+    <text x="30" y="226" fill="#8b949e">$ python3 pilot.py click 0</text>
+    <text x="30" y="249" fill="#e6edf3">{ "ok": true, "ref": 0 }</text>
+    <text x="30" y="279" fill="#8b949e">$ python3 pilot.py read text | head -c 200 …</text>
+  </g>
+</svg>

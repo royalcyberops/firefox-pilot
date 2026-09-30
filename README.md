@@ -1,7 +1,13 @@
-# Firefox Pilot — local-only browser control for OpenCode
+# 🦊 Firefox Pilot — local-only browser control for OpenCode
+
+![stdlib](https://img.shields.io/badge/stdlib-only-blue) ![no-keys](https://img.shields.io/badge/no--API--keys-green) ![firefox](https://img.shields.io/badge/firefox-ESR-orange)
 
 No AI inside. No API keys. No paid models. Stdlib-only server, plain-JS extension.
 The brains are your existing free OpenCode models (Qwen3 8B local / Muse Spark Free).
+
+![demo](assets/demo.svg)
+
+![architecture](assets/architecture.svg)
 
 ## Layout
 

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="220" font-family="monospace">
+  <rect width="760" height="220" rx="12" fill="#0d1117"/>
+  <g fill="#161b22" stroke="#30363d">
+    <rect x="20" y="70" width="150" height="80" rx="10"/>
+    <rect x="215" y="70" width="150" height="80" rx="10"/>
+    <rect x="410" y="70" width="150" height="80" rx="10"/>
+    <rect x="600" y="70" width="140" height="80" rx="10"/>
+  </g>
+  <g text-anchor="middle" font-size="14">
+    <text x="95" y="100" fill="#58a6ff">pilot.py CLI</text>
+    <text x="95" y="122" fill="#8b949e" font-size="11">one shot</text>
+    <text x="95" y="137" fill="#8b949e" font-size="11">per command</text>
+    <text x="290" y="100" fill="#f0883e">server.py :8765</text>
+    <text x="290" y="122" fill="#8b949e" font-size="11">localhost only</text>
+    <text x="290" y="137" fill="#8b949e" font-size="11">token auth</text>
+    <text x="485" y="100" fill="#3fb950">extension</text>
+    <text x="485" y="122" fill="#8b949e" font-size="11">outbound WS</text>
+    <text x="485" y="137" fill="#8b949e" font-size="11">background.js</text>
+    <text x="670" y="100" fill="#d2a8ff">web page</text>
+    <text x="670" y="122" fill="#8b949e" font-size="11">content.js</text>
+    <text x="670" y="137" fill="#8b949e" font-size="11">refs 0..199</text>
+  </g>
+  <g fill="none" stroke="#58a6ff" stroke-width="2">
+    <line x1="170" y1="110" x2="215" y2="110"/>
+    <polygon points="215,105 223,110 215,115" fill="#58a6ff" stroke="none"/>
+    <line x1="365" y1="110" x2="410" y2="110"/>
+    <polygon points="410,105 418,110 410,115" fill="#58a6ff" stroke="none"/>
+    <line x1="560" y1="110" x2="600" y2="110"/>
+    <polygon points="600,105 608,110 600,115" fill="#58a6ff" stroke="none"/>
+  </g>
+  <g text-anchor="middle" font-size="11" fill="#8b949e">
+    <text x="192" y="100">WS</text>
+    <text x="387" y="100">WS</text>
+    <text x="580" y="100">msgs</text>
+  </g>
+  <text x="380" y="30" text-anchor="middle" font-size="16" fill="#e6edf3">Firefox Pilot — request flow</text>
+  <text x="380" y="50" text-anchor="middle" font-size="12" fill="#8b949e">CLI relays through server to extension by request id · stdlib only</text>
+  <text x="380" y="185" text-anchor="middle" font-size="12" fill="#8b949e">ping · tabs · goto · snapshot · click · type · read · scroll · screenshot</text>
+</svg>
